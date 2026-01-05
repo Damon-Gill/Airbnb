@@ -276,17 +276,13 @@ from itertools import product
 import joblib
 import pandas as pd
 
-# =========================
 # Regression imports
-# =========================
 from sklearn.linear_model import SGDRegressor
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 
-# =========================
 # Classification imports
-# =========================
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
@@ -297,18 +293,13 @@ from sklearn.metrics import (
     f1_score,
 )
 
-# =========================
 # Shared imports
-# =========================
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 from tabular_data import load_airbnb
 
-
-# ============================================================
 # REGRESSION: Custom hyperparameter tuning
-# ============================================================
 def custom_tune_regression_model_hyperparameters(
     model_class,
     X_train, y_train,
@@ -336,10 +327,7 @@ def custom_tune_regression_model_hyperparameters(
 
     return best_model, best_params, best_metrics
 
-
-# ============================================================
 # CLASSIFICATION: Custom hyperparameter tuning
-# ============================================================
 def tune_classification_model_hyperparameters(
     model_class,
     X_train, y_train,
@@ -367,10 +355,7 @@ def tune_classification_model_hyperparameters(
 
     return best_model, best_params, best_metrics
 
-
-# ============================================================
 # Save model utility
-# ============================================================
 def save_model(model, hyperparameters, metrics, folder):
     folder_path = Path(folder)
     folder_path.mkdir(parents=True, exist_ok=True)
@@ -386,9 +371,7 @@ def save_model(model, hyperparameters, metrics, folder):
     print(f"Saved model to: {folder_path}")
 
 
-# ============================================================
 # REGRESSION: Evaluate all models
-# ============================================================
 def evaluate_all_models(
     models_to_run,
     X_train, X_val, X_test,
@@ -443,15 +426,12 @@ def evaluate_all_models(
         )
 
 
-# ============================================================
-# MAIN
-# ============================================================
 if __name__ == "__main__":
 
     script_path = Path(__file__).resolve().parent
     df = pd.read_csv(script_path / "clean_AirBnbData.csv")
 
-    # ===================== REGRESSION =====================
+    #Regression
     X_reg, y_reg = load_airbnb(df, label="Price_Night")
 
     X_train_full, X_test, y_train_full, y_test = train_test_split(
@@ -493,7 +473,7 @@ if __name__ == "__main__":
         task_type="regression"
     )
 
-    # ===================== CLASSIFICATION =====================
+    #Classification
     X_clf, y_clf = load_airbnb(df, label="Category")
 
     X_train_full, X_test, y_train_full, y_test = train_test_split(
@@ -534,4 +514,5 @@ if __name__ == "__main__":
         task_folder="classification",
         task_type="classification"
     )
+
 ```
